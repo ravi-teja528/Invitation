@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Invitation - Penakacherla Family</title>
+  <title>Housewarming Invitation - Penakacherla Family</title>
   
-  <!-- Authentic Traditional & Classical Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Marcellus&family=Pinyon+Script&family=Rozha+One&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- Premium Google Fonts: Playfair Display, Cinzel Decorative, Marcellus & Montserrat -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Marcellus&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
   
   <style>
     * {
@@ -15,19 +15,25 @@
       padding: 0;
     }
 
-    body {
+    html, body {
+      width: 100%;
+      min-height: 100%;
       font-family: 'Montserrat', sans-serif;
-      background-color: #1a0f0a;
-      min-height: 100vh;
-      overflow-x: hidden;
-      overflow-y: hidden; /* Locked until doors are opened */
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      background-color: #0f0704;
+      color: #2c140a;
+    }
+
+    /* Body scroll behavior */
+    body.doors-closed {
+      overflow: hidden;
+    }
+
+    body.doors-open {
+      overflow-y: auto;
     }
 
     /* ----------------------------------
-       3D DOOR OVERLAY (1000197031.jpg)
+       FULLSCREEN 3D DOOR OVERLAY
     ---------------------------------- */
     #door-wrapper {
       position: fixed;
@@ -76,273 +82,356 @@
       transition: opacity 0.8s ease 1s;
     }
 
-    .tap-hint {
+    /* Door Overlay Header Text */
+    .door-header-text {
       position: absolute;
-      bottom: 12%;
+      top: 14%;
       left: 50%;
       transform: translateX(-50%);
-      background: rgba(120, 20, 20, 0.92);
-      color: #fff8eb;
-      padding: 12px 28px;
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #fff5da;
+      text-align: center;
+      width: 88%;
+      max-width: 500px;
+      text-shadow: 2px 3px 10px rgba(0,0,0,0.85), 0 0 20px rgba(212, 175, 55, 0.6);
+      z-index: 10001;
+      letter-spacing: 1px;
+      line-height: 1.3;
+      pointer-events: none;
+    }
+
+    .tap-hint {
+      position: absolute;
+      bottom: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, #7a0c0c, #4a0505);
+      color: #fff3d1;
+      padding: 14px 32px;
       border-radius: 30px;
       font-family: 'Marcellus', serif;
-      font-size: 0.95rem;
-      letter-spacing: 1.5px;
+      font-size: 1rem;
+      letter-spacing: 2px;
       border: 1px solid #d4af37;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.6);
       animation: pulse 2s infinite;
       z-index: 10000;
       text-transform: uppercase;
+      pointer-events: none;
     }
 
     @keyframes pulse {
       0%, 100% { transform: translateX(-50%) scale(1); }
-      50% { transform: translateX(-50%) scale(1.05); }
+      50% { transform: translateX(-50%) scale(1.06); }
     }
 
     /* ----------------------------------
-       MAIN PAGE & CARD CONTAINER
+       FULLSCREEN MAIN BACKGROUND & SCROLL AREA
     ---------------------------------- */
-    .invitation-wrapper {
-      width: 100%;
+    .fullscreen-bg {
+      width: 100vw;
       min-height: 100vh;
+      background: url('1000197047.jpg') no-repeat center top / cover fixed;
       display: flex;
       justify-content: center;
-      align-items: center;
-      padding: 15px 10px;
-      background-color: #2b1810;
+      align-items: flex-start;
     }
 
-    /* Frame housing the background card (1000197047.jpg) */
-    .card-frame {
-      position: relative;
+    /* Spacious central scroll zone */
+    .content-scroll-container {
       width: 100%;
-      max-width: 520px;
-      height: 920px;
-      max-height: 94vh;
-      background: url('1000197047.jpg') no-repeat center center / 100% 100%;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.7);
-      border-radius: 16px;
-      overflow: hidden;
-    }
-
-    /* STRICT CENTER BOUNDING ZONE
-       Prevents text from overlapping Om, hanging bells, cow, peacock, or side arches */
-    .plain-center-area {
-      position: absolute;
-      top: 25%;    /* Below Om mandala & top floral garlands */
-      bottom: 22%; /* Above cow, peacock & temple domes */
-      left: 17%;   /* Inside side arches */
-      right: 17%;
+      max-width: 540px;
+      padding: 180px 25px 220px 25px; /* High top & bottom padding to avoid overlapping art assets */
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
       align-items: center;
       text-align: center;
-      padding: 5px;
-      overflow-y: auto;
-      scrollbar-width: none;
-    }
-    
-    .plain-center-area::-webkit-scrollbar {
-      display: none;
+      gap: 45px; /* Generous spacing between all sections */
     }
 
     /* ----------------------------------
-       AUTHENTIC TRADITIONAL TYPOGRAPHY
+       TYPOGRAPHY & SECTIONS
     ---------------------------------- */
     .shlok-text {
       font-family: 'Marcellus', serif;
-      font-size: 0.85rem;
+      font-size: 0.95rem;
       font-weight: 600;
-      color: #7b1818;
-      letter-spacing: 0.5px;
-    }
-
-    .invitation-callout {
-      font-family: 'Pinyon Script', cursive;
-      font-size: 2.3rem;
-      color: #631212;
-      line-height: 1;
-      margin-top: 4px;
-    }
-
-    .family-name {
-      font-family: 'Rozha One', serif;
-      font-size: 2rem;
       color: #7a0c0c;
-      font-weight: 400;
-      letter-spacing: 0.5px;
-      line-height: 1.15;
-      text-shadow: 1px 1px 1px rgba(255, 235, 200, 0.8);
-      margin: 4px 0 2px 0;
-      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .family-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.3rem;
+      font-weight: 700;
+      color: #5c0d0d;
+      margin-top: 5px;
+      line-height: 1.2;
+    }
+
+    /* PROMINENT HIGHLIGHTED INVITATION BANNER */
+    .invitation-highlight-box {
+      background: linear-gradient(135deg, rgba(122, 12, 12, 0.92), rgba(74, 5, 5, 0.95));
+      border: 2px solid #d4af37;
+      padding: 22px 25px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+      width: 100%;
+    }
+
+    .highlight-title {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 1.55rem;
+      color: #ffd700;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      line-height: 1.35;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    }
+
+    .highlight-subtitle {
+      font-family: 'Marcellus', serif;
+      font-size: 1rem;
+      color: #fff8eb;
+      margin-top: 8px;
+      letter-spacing: 1px;
     }
 
     .invitation-desc {
       font-family: 'Marcellus', serif;
-      font-size: 0.78rem;
-      line-height: 1.35;
-      color: #4a2211;
-      margin: 3px 0;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #3b1408;
+      max-width: 420px;
     }
 
+    /* DATE BADGE */
     .date-badge {
-      font-family: 'Cinzel Decorative', serif;
-      font-size: 0.92rem;
-      color: #8b1a1a;
+      background: rgba(255, 255, 255, 0.65);
+      border-top: 2px solid #8b1a1a;
+      border-bottom: 2px solid #8b1a1a;
+      padding: 12px 28px;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
       font-weight: 700;
-      border-top: 1px dashed rgba(139, 26, 26, 0.4);
-      border-bottom: 1px dashed rgba(139, 26, 26, 0.4);
-      padding: 4px 10px;
-      margin: 4px 0;
-    }
-
-    .schedule-box {
-      width: 100%;
-      margin: 2px 0;
-    }
-
-    .section-title {
-      font-family: 'Pinyon Script', cursive;
-      font-size: 2rem;
       color: #7a0c0c;
-      line-height: 1;
-      margin-bottom: 2px;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
     }
 
-    .schedule-item {
-      font-family: 'Marcellus', serif;
-      font-size: 0.8rem;
-      color: #3b1408;
-      margin-bottom: 3px;
+    /* SCHEDULE SECTION */
+    .schedule-card {
+      width: 100%;
+      background: rgba(255, 253, 247, 0.75);
+      backdrop-filter: blur(4px);
+      border-radius: 16px;
+      padding: 25px 20px;
+      border: 1px solid rgba(212, 175, 55, 0.5);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
     }
 
-    .schedule-item strong {
+    .section-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: #7a0c0c;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+
+    .schedule-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px dashed rgba(122, 12, 12, 0.25);
+      font-size: 0.95rem;
+    }
+
+    .schedule-row:last-child {
+      border-bottom: none;
+    }
+
+    .event-time {
+      font-weight: 700;
       color: #8b1a1a;
+      font-size: 1rem;
+      min-width: 90px;
+      text-align: left;
+    }
+
+    .event-name {
       font-weight: 600;
+      color: #2c140a;
+      text-align: right;
     }
 
-    .venue-address {
-      font-family: 'Marcellus', serif;
-      font-size: 0.76rem;
+    /* VENUE & MAP */
+    .venue-card {
+      width: 100%;
+      background: rgba(255, 253, 247, 0.75);
+      backdrop-filter: blur(4px);
+      border-radius: 16px;
+      padding: 25px 20px;
+      border: 1px solid rgba(212, 175, 55, 0.5);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    }
+
+    .venue-text {
+      font-size: 0.95rem;
+      line-height: 1.6;
       color: #3b1408;
-      line-height: 1.35;
-      margin: 3px 0 6px 0;
+      margin: 10px 0 20px 0;
     }
 
-    /* MAP NAVIGATION BUTTON */
     .btn-map {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
       background: linear-gradient(135deg, #8b1a1a, #5c0d0d);
       color: #fff8eb;
       text-decoration: none;
-      padding: 7px 16px;
-      border-radius: 20px;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.72rem;
-      font-weight: 500;
-      letter-spacing: 0.5px;
+      padding: 14px 28px;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 0.9rem;
       border: 1px solid #d4af37;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.25);
-      transition: transform 0.2s;
+      box-shadow: 0 6px 18px rgba(139, 26, 26, 0.35);
+      transition: transform 0.2s, box-shadow 0.2s;
     }
 
     .btn-map:hover {
-      transform: scale(1.04);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(139, 26, 26, 0.45);
     }
 
-    .contact-box {
-      margin-top: 4px;
-      font-size: 0.72rem;
+    /* HOST CONTACT */
+    .contact-card {
+      width: 100%;
+      padding-top: 10px;
     }
 
-    .contact-phones {
+    .contact-label {
+      font-family: 'Marcellus', serif;
+      font-size: 0.85rem;
+      color: #666;
+      margin-bottom: 8px;
+    }
+
+    .contact-buttons {
       display: flex;
       justify-content: center;
-      gap: 10px;
-      margin-top: 2px;
+      gap: 15px;
+      flex-wrap: wrap;
     }
 
-    .phone-link {
+    .phone-btn {
       color: #7a0c0c;
       text-decoration: none;
       font-weight: 600;
-      font-size: 0.72rem;
-      font-family: 'Montserrat', sans-serif;
+      font-size: 0.9rem;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 10px 20px;
+      border-radius: 25px;
+      border: 1px solid #d4af37;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.05);
     }
 
+    /* Mobile Responsive Adjustments */
     @media (max-width: 480px) {
-      .card-frame {
-        height: 86vh;
-      }
-      .family-name { font-size: 1.7rem; }
-      .invitation-callout { font-size: 1.9rem; }
-      .shlok-text { font-size: 0.75rem; }
+      .door-header-text { font-size: 1.75rem; top: 12%; }
+      .family-title { font-size: 1.9rem; }
+      .highlight-title { font-size: 1.25rem; }
+      .content-scroll-container { padding-top: 160px; padding-bottom: 200px; gap: 40px; }
+      .schedule-row { flex-direction: column; align-items: center; gap: 4px; text-align: center; }
+      .event-time, .event-name { text-align: center; }
     }
   </style>
 </head>
-<body>
+<body class="doors-closed">
 
-  <!-- Interactive 3D Door Overlay -->
+  <!-- Fullscreen 3D Door Overlay -->
   <div id="door-wrapper" onclick="openDoor()">
+    <!-- Text on top of doors -->
+    <div class="door-header-text">
+      Penakacherla Family<br>
+      <span style="font-family: 'Marcellus', serif; font-size: 1.2rem; font-weight: 400; color: #ffd700;">Invites You</span>
+    </div>
+
     <div class="door door-left"></div>
     <div class="door door-right"></div>
+    
     <div class="tap-hint" id="tapHint">✦ Tap To Open ✦</div>
   </div>
 
-  <!-- Invitation Content Area -->
-  <div class="invitation-wrapper">
-    <div class="card-frame">
+  <!-- Fullscreen Main Background & Scroll Container -->
+  <div class="fullscreen-bg">
+    <div class="content-scroll-container">
       
-      <!-- Bound strictly within central plain area -->
-      <div class="plain-center-area">
+      <!-- Top Shlok & Family Title -->
+      <div>
+        <div class="shlok-text">|| Sri Satyanarayana Swamye Namaha ||</div>
+        <div class="family-title">Penakacherla Family</div>
+      </div>
+
+      <!-- PROMINENT HIGHLIGHTED HOUSEWARMING BANNER -->
+      <div class="invitation-highlight-box">
+        <div class="highlight-title">HOUSEWARMING INVITATION</div>
+        <div class="highlight-subtitle">& Sri Satyanarayana Swamy Vratham</div>
+      </div>
+
+      <!-- Description -->
+      <div class="invitation-desc">
+        We cordially solicit your gracious presence and blessings on the auspicious occasion of our Housewarming Ceremony.
+      </div>
+
+      <!-- Event Date -->
+      <div class="date-badge">
+        📅 Wednesday, 19 August 2026
+      </div>
+
+      <!-- Auspicious Program Schedule -->
+      <div class="schedule-card">
+        <div class="section-heading">Auspicious Program</div>
         
-        <div>
-          <div class="shlok-text">|| Sri Satyanarayana Swamye Namaha ||</div>
-          <div class="invitation-callout">Warmly Invites You</div>
-          <div class="family-name">Penakacherla Family</div>
+        <div class="schedule-row">
+          <div class="event-time">04:30 AM</div>
+          <div class="event-name">Gruhapravesam</div>
         </div>
 
-        <div class="invitation-desc">
-          Solicit your gracious presence on the occasion of our Housewarming & Satyanarayana Swamy Vratham.
+        <div class="schedule-row">
+          <div class="event-time">09:30 AM</div>
+          <div class="event-name">Satyanarayana Swamy Vratham</div>
         </div>
 
-        <!-- Date -->
-        <div class="date-badge">
-          19 August 2026
+        <div class="schedule-row">
+          <div class="event-time">12:30 PM</div>
+          <div class="event-name">Grand Lunch Onwards</div>
         </div>
+      </div>
 
-        <!-- Schedule -->
-        <div class="schedule-box">
-          <div class="section-title">Auspicious Program</div>
-          <div class="schedule-item"><strong>04:30 AM</strong> — Gruhapravesam</div>
-          <div class="schedule-item"><strong>09:30 AM</strong> — Satyanarayana Vratham</div>
-          <div class="schedule-item"><strong>12:30 PM</strong> — Lunch Onwards</div>
+      <!-- Venue & Directions -->
+      <div class="venue-card">
+        <div class="section-heading" style="margin-bottom: 10px;">Venue Details</div>
+        <div class="venue-text">
+          <strong>Villa No - 3, Rajahamsa Villas</strong><br>
+          KLD Road, Ananthapur
         </div>
+        
+        <a href="https://maps.app.goo.gl/UtDtkRgg9UCZnwtU8?g_st=ac" target="_blank" class="btn-map">
+          📍 Open Location in Google Maps
+        </a>
+      </div>
 
-        <!-- Venue & Directions -->
-        <div>
-          <div class="section-title" style="font-size: 1.8rem;">Venue</div>
-          <div class="venue-address">
-            <strong>Villa No - 3, Rajahamsa Villas</strong><br>
-            KLD Road, Ananthapur
-          </div>
-          
-          <a href="https://maps.app.goo.gl/UtDtkRgg9UCZnwtU8?g_st=ac" target="_blank" class="btn-map">
-            📍 Get Directions
-          </a>
+      <!-- Host Contact -->
+      <div class="contact-card">
+        <div class="contact-label">Host Contact Information</div>
+        <div class="contact-buttons">
+          <a href="tel:8866887857" class="phone-btn">📞 8866887857</a>
+          <a href="tel:9829937738" class="phone-btn">📞 9829937738</a>
         </div>
-
-        <!-- Host & Contact Info -->
-        <div class="contact-box">
-          <div style="font-size: 0.68rem; color: #666; font-family: 'Marcellus', serif;">Host Contact:</div>
-          <div class="contact-phones">
-            <a href="tel:8866887857" class="phone-link">📞 8866887857</a>
-            <a href="tel:9829937738" class="phone-link">📞 9829937738</a>
-          </div>
-        </div>
-
       </div>
 
     </div>
@@ -355,7 +444,10 @@
       
       tapHint.style.display = 'none';
       doorWrapper.classList.add('open');
-      document.body.style.overflowY = 'auto';
+      
+      // Enable scrolling on main body
+      document.body.classList.remove('doors-closed');
+      document.body.classList.add('doors-open');
 
       setTimeout(() => {
         doorWrapper.classList.add('fade-out');
