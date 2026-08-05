@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invitation - Penakacherla Family</title>
+  
+  <!-- Authentic Traditional & Classical Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Marcellus&family=Pinyon+Script&family=Rozha+One&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: #1a0f0a;
+      min-height: 100vh;
+      overflow-x: hidden;
+      overflow-y: hidden; /* Locked until doors are opened */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* ----------------------------------
+       3D DOOR OVERLAY (1000197031.jpg)
+    ---------------------------------- */
+    #door-wrapper {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 9999;
+      perspective: 1500px;
+      display: flex;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .door {
+      width: 50vw;
+      height: 100vh;
+      background-image: url('1000197031.jpg');
+      background-size: 100vw 100vh;
+      background-repeat: no-repeat;
+      transition: transform 1.6s cubic-bezier(0.65, 0, 0.35, 1);
+      position: relative;
+    }
+
+    .door-left {
+      background-position: left center;
+      transform-origin: left center;
+    }
+
+    .door-right {
+      background-position: right center;
+      transform-origin: right center;
+    }
+
+    #door-wrapper.open .door-left {
+      transform: rotateY(-115deg);
+    }
+
+    #door-wrapper.open .door-right {
+      transform: rotateY(115deg);
+    }
+
+    #door-wrapper.fade-out {
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.8s ease 1s;
+    }
+
+    .tap-hint {
+      position: absolute;
+      bottom: 12%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(120, 20, 20, 0.92);
+      color: #fff8eb;
+      padding: 12px 28px;
+      border-radius: 30px;
+      font-family: 'Marcellus', serif;
+      font-size: 0.95rem;
+      letter-spacing: 1.5px;
+      border: 1px solid #d4af37;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+      animation: pulse 2s infinite;
+      z-index: 10000;
+      text-transform: uppercase;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: translateX(-50%) scale(1); }
+      50% { transform: translateX(-50%) scale(1.05); }
+    }
+
+    /* ----------------------------------
+       MAIN PAGE & CARD CONTAINER
+    ---------------------------------- */
+    .invitation-wrapper {
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 15px 10px;
+      background-color: #2b1810;
+    }
+
+    /* Frame housing the background card (1000197047.jpg) */
+    .card-frame {
+      position: relative;
+      width: 100%;
+      max-width: 520px;
+      height: 920px;
+      max-height: 94vh;
+      background: url('1000197047.jpg') no-repeat center center / 100% 100%;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.7);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    /* STRICT CENTER BOUNDING ZONE
+       Prevents text from overlapping Om, hanging bells, cow, peacock, or side arches */
+    .plain-center-area {
+      position: absolute;
+      top: 25%;    /* Below Om mandala & top floral garlands */
+      bottom: 22%; /* Above cow, peacock & temple domes */
+      left: 17%;   /* Inside side arches */
+      right: 17%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      text-align: center;
+      padding: 5px;
+      overflow-y: auto;
+      scrollbar-width: none;
+    }
+    
+    .plain-center-area::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* ----------------------------------
+       AUTHENTIC TRADITIONAL TYPOGRAPHY
+    ---------------------------------- */
+    .shlok-text {
+      font-family: 'Marcellus', serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #7b1818;
+      letter-spacing: 0.5px;
+    }
+
+    .invitation-callout {
+      font-family: 'Pinyon Script', cursive;
+      font-size: 2.3rem;
+      color: #631212;
+      line-height: 1;
+      margin-top: 4px;
+    }
+
+    .family-name {
+      font-family: 'Rozha One', serif;
+      font-size: 2rem;
+      color: #7a0c0c;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+      line-height: 1.15;
+      text-shadow: 1px 1px 1px rgba(255, 235, 200, 0.8);
+      margin: 4px 0 2px 0;
+      text-transform: uppercase;
+    }
+
+    .invitation-desc {
+      font-family: 'Marcellus', serif;
+      font-size: 0.78rem;
+      line-height: 1.35;
+      color: #4a2211;
+      margin: 3px 0;
+    }
+
+    .date-badge {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 0.92rem;
+      color: #8b1a1a;
+      font-weight: 700;
+      border-top: 1px dashed rgba(139, 26, 26, 0.4);
+      border-bottom: 1px dashed rgba(139, 26, 26, 0.4);
+      padding: 4px 10px;
+      margin: 4px 0;
+    }
+
+    .schedule-box {
+      width: 100%;
+      margin: 2px 0;
+    }
+
+    .section-title {
+      font-family: 'Pinyon Script', cursive;
+      font-size: 2rem;
+      color: #7a0c0c;
+      line-height: 1;
+      margin-bottom: 2px;
+    }
+
+    .schedule-item {
+      font-family: 'Marcellus', serif;
+      font-size: 0.8rem;
+      color: #3b1408;
+      margin-bottom: 3px;
+    }
+
+    .schedule-item strong {
+      color: #8b1a1a;
+      font-weight: 600;
+    }
+
+    .venue-address {
+      font-family: 'Marcellus', serif;
+      font-size: 0.76rem;
+      color: #3b1408;
+      line-height: 1.35;
+      margin: 3px 0 6px 0;
+    }
+
+    /* MAP NAVIGATION BUTTON */
+    .btn-map {
+      display: inline-block;
+      background: linear-gradient(135deg, #8b1a1a, #5c0d0d);
+      color: #fff8eb;
+      text-decoration: none;
+      padding: 7px 16px;
+      border-radius: 20px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      border: 1px solid #d4af37;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+      transition: transform 0.2s;
+    }
+
+    .btn-map:hover {
+      transform: scale(1.04);
+    }
+
+    .contact-box {
+      margin-top: 4px;
+      font-size: 0.72rem;
+    }
+
+    .contact-phones {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 2px;
+    }
+
+    .phone-link {
+      color: #7a0c0c;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.72rem;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    @media (max-width: 480px) {
+      .card-frame {
+        height: 86vh;
+      }
+      .family-name { font-size: 1.7rem; }
+      .invitation-callout { font-size: 1.9rem; }
+      .shlok-text { font-size: 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Interactive 3D Door Overlay -->
+  <div id="door-wrapper" onclick="openDoor()">
+    <div class="door door-left"></div>
+    <div class="door door-right"></div>
+    <div class="tap-hint" id="tapHint">✦ Tap To Open ✦</div>
+  </div>
+
+  <!-- Invitation Content Area -->
+  <div class="invitation-wrapper">
+    <div class="card-frame">
+      
+      <!-- Bound strictly within central plain area -->
+      <div class="plain-center-area">
+        
+        <div>
+          <div class="shlok-text">|| Sri Satyanarayana Swamye Namaha ||</div>
+          <div class="invitation-callout">Warmly Invites You</div>
+          <div class="family-name">Penakacherla Family</div>
+        </div>
+
+        <div class="invitation-desc">
+          Solicit your gracious presence on the occasion of our Housewarming & Satyanarayana Swamy Vratham.
+        </div>
+
+        <!-- Date -->
+        <div class="date-badge">
+          19 August 2026
+        </div>
+
+        <!-- Schedule -->
+        <div class="schedule-box">
+          <div class="section-title">Auspicious Program</div>
+          <div class="schedule-item"><strong>04:30 AM</strong> — Gruhapravesam</div>
+          <div class="schedule-item"><strong>09:30 AM</strong> — Satyanarayana Vratham</div>
+          <div class="schedule-item"><strong>12:30 PM</strong> — Lunch Onwards</div>
+        </div>
+
+        <!-- Venue & Directions -->
+        <div>
+          <div class="section-title" style="font-size: 1.8rem;">Venue</div>
+          <div class="venue-address">
+            <strong>Villa No - 3, Rajahamsa Villas</strong><br>
+            KLD Road, Ananthapur
+          </div>
+          
+          <a href="https://maps.app.goo.gl/UtDtkRgg9UCZnwtU8?g_st=ac" target="_blank" class="btn-map">
+            📍 Get Directions
+          </a>
+        </div>
+
+        <!-- Host & Contact Info -->
+        <div class="contact-box">
+          <div style="font-size: 0.68rem; color: #666; font-family: 'Marcellus', serif;">Host Contact:</div>
+          <div class="contact-phones">
+            <a href="tel:8866887857" class="phone-link">📞 8866887857</a>
+            <a href="tel:9829937738" class="phone-link">📞 9829937738</a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    function openDoor() {
+      const doorWrapper = document.getElementById('door-wrapper');
+      const tapHint = document.getElementById('tapHint');
+      
+      tapHint.style.display = 'none';
+      doorWrapper.classList.add('open');
+      document.body.style.overflowY = 'auto';
+
+      setTimeout(() => {
+        doorWrapper.classList.add('fade-out');
+      }, 1600);
+    }
+  </script>
+</body>
+</html>
