@@ -82,37 +82,34 @@
       opacity: 0;
     }
 
-    /* HIGH VISIBILITY DOOR TEXT (TOP OF DOOR PAGE) */
+    /* CLEAN DOOR TEXT (NO BOX, JUST FONT) */
     .door-header-text {
       position: absolute;
-      top: 4%; /* Positioned near top of image */
+      top: 6%; /* Near the top of the door frame */
       left: 50%;
       transform: translateX(-50%);
       font-family: 'Cinzel Decorative', serif;
-      font-size: 1.35rem;
+      font-size: 1.6rem;
       font-weight: 700;
-      color: #610a0a;
+      color: #fff3d1; /* Gold/Cream text */
       text-align: center;
-      width: 88%;
-      max-width: 440px;
-      background: rgba(255, 248, 230, 0.92); /* High contrast plate */
-      padding: 12px 20px;
-      border-radius: 40px;
-      border: 2px solid #d4af37;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+      width: 90%;
+      max-width: 480px;
       z-index: 10001;
       letter-spacing: 1px;
-      line-height: 1.3;
+      line-height: 1.35;
       pointer-events: none;
       transition: opacity 0.5s ease;
+      /* Subtle dark glow so font pops cleanly over the image without a box */
+      text-shadow: 2px 3px 10px rgba(0,0,0,0.85), 0 0 20px rgba(212, 175, 55, 0.5);
     }
 
     .door-header-text span {
       display: block;
       font-family: 'Marcellus', serif;
-      font-size: 0.95rem;
-      color: #8b1a1a;
-      margin-top: 3px;
+      font-size: 1.05rem;
+      color: #ffd700;
+      margin-top: 5px;
       letter-spacing: 2px;
       text-transform: uppercase;
     }
@@ -144,7 +141,7 @@
     }
 
     /* ----------------------------------
-       FIXED BACKGROUND (STATIONARY - NO MOVING)
+       FIXED STAY-STILL BACKGROUND
     ---------------------------------- */
     #fixed-bg {
       position: fixed;
@@ -157,7 +154,7 @@
     }
 
     /* ----------------------------------
-       SCROLL CONTAINER & FLOATING TEXT (NO TABLES/CARDS)
+       SCROLL CONTAINER (CONSTRAINED TO PLAIN CENTER AREA)
     ---------------------------------- */
     .scroll-overlay {
       position: relative;
@@ -171,17 +168,18 @@
     .content-area {
       width: 100%;
       max-width: 520px;
-      /* Generous top & bottom spacing so text scrolls in the center plain parchment zone */
-      padding: 220px 25px 260px 25px;
+      /* Padding keeps text strictly within the plain center parchments, 
+         preventing scroll from going over top Om/bells or bottom cow/peacock */
+      padding: 250px 25px 250px 25px;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
-      gap: 50px; /* Expands scroll distance cleanly */
+      gap: 48px;
     }
 
     /* ----------------------------------
-       FLOATING TYPOGRAPHY STYLES
+       FLOATING TYPOGRAPHY
     ---------------------------------- */
     .shlok-text {
       font-family: 'Marcellus', serif;
@@ -202,7 +200,7 @@
       text-shadow: 1px 1px 2px rgba(255, 235, 200, 0.9);
     }
 
-    /* PROMINENT HIGHLIGHTED HOUSEWARMING TITLE (NO BOX) */
+    /* HIGHLIGHTED HOUSEWARMING TITLE */
     .highlight-container {
       margin: 5px 0;
     }
@@ -242,20 +240,19 @@
       text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
     }
 
-    /* FLOATING DATE */
+    /* CLEAN DATE (NO LINES BEFORE OR AFTER) */
     .date-text {
       font-family: 'Cinzel Decorative', serif;
       font-size: 1.25rem;
       font-weight: 700;
       color: #7a0c0c;
       letter-spacing: 1px;
-      border-top: 2px solid rgba(139, 26, 26, 0.4);
-      border-bottom: 2px solid rgba(139, 26, 26, 0.4);
-      padding: 10px 25px;
       display: inline-block;
+      padding: 0; /* Border lines removed */
+      text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
     }
 
-    /* PROGRAM SCHEDULE (CLEAN LIST FORMAT WITHOUT TABLES) */
+    /* PROGRAM SCHEDULE */
     .schedule-block {
       width: 100%;
     }
@@ -357,12 +354,12 @@
 
     /* Mobile Adjustments */
     @media (max-width: 480px) {
-      .door-header-text { font-size: 1.15rem; top: 4%; width: 92%; }
-      .door-header-text span { font-size: 0.85rem; }
+      .door-header-text { font-size: 1.35rem; top: 6%; }
+      .door-header-text span { font-size: 0.9rem; }
       .family-title { font-size: 2rem; }
       .highlight-title { font-size: 1.35rem; }
       .highlight-subtitle { font-size: 0.95rem; }
-      .content-area { padding-top: 190px; padding-bottom: 220px; gap: 42px; }
+      .content-area { padding-top: 220px; padding-bottom: 220px; gap: 40px; }
     }
   </style>
 </head>
@@ -370,7 +367,7 @@
 
   <!-- Fullscreen 3D Door Overlay -->
   <div id="door-wrapper" onclick="openDoor()">
-    <!-- Text at top of door page -->
+    <!-- Door Text without any box -->
     <div class="door-header-text" id="doorHeaderText">
       Penakacherla Family
       <span>Warmly Invites You</span>
@@ -385,7 +382,7 @@
   <!-- FIXED STAY-STILL BACKGROUND -->
   <div id="fixed-bg"></div>
 
-  <!-- SCROLLING INVITATION CONTENT (NO CARDS / NO TABLES) -->
+  <!-- SCROLLING INVITATION CONTENT -->
   <div class="scroll-overlay">
     <div class="content-area">
       
@@ -408,12 +405,12 @@
         We cordially solicit your gracious presence and blessings on the auspicious occasion of our Housewarming Ceremony.
       </div>
 
-      <!-- Event Date -->
+      <!-- Clean Event Date (Lines Removed) -->
       <div class="date-text">
         📅 Wednesday, 19 August 2026
       </div>
 
-      <!-- Auspicious Program Schedule (Clean List) -->
+      <!-- Auspicious Program Schedule -->
       <div class="schedule-block">
         <div class="section-heading">Auspicious Program</div>
         
