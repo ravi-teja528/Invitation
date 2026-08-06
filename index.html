@@ -39,11 +39,10 @@
       cursor: pointer;
       overflow: hidden;
       transform-origin: center center;
-      /* Smooth zoom transition for the entire door image without inner overlapping */
       transition: transform 1.6s ease-in-out, opacity 0.8s ease;
     }
 
-    /* STEP 1: Smooth 30% Zoom on entire wrapper as a single still image */
+    /* Step 1: Smooth 30% Zoom */
     #door-wrapper.zooming {
       transform: scale(1.3);
     }
@@ -54,7 +53,6 @@
       background-image: url('1000197031.jpg');
       background-size: 100vw 100vh;
       background-repeat: no-repeat;
-      /* Slow, elegant 3D swing duration */
       transition: transform 2.2s cubic-bezier(0.35, 0, 0.25, 1);
       position: relative;
     }
@@ -69,7 +67,7 @@
       transform-origin: right center;
     }
 
-    /* STEP 2: Slow 3D Door Opening */
+    /* Step 2: 3D Door Opening */
     #door-wrapper.open .door-left {
       transform: rotateY(-115deg);
     }
@@ -83,7 +81,7 @@
       opacity: 0;
     }
 
-    /* HIGH-CONTRAST DOOR TEXT */
+    /* HIGH-CONTRAST DOOR TEXT (NO BOX) */
     .door-header-text {
       position: absolute;
       top: 6%;
@@ -169,6 +167,7 @@
       display: flex;
       justify-content: center;
       scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
     }
 
     .scroll-overlay::-webkit-scrollbar {
@@ -376,7 +375,7 @@
     <div class="door door-left"></div>
     <div class="door door-right"></div>
     
-    <div class="tap-hint" id="tapHint">✦ Tap To Open ✦</div>
+    <div class="tap-hint" id="tapHint">Tap To Open</div>
   </div>
 
   <!-- FIXED STAY-STILL BACKGROUND -->
@@ -388,7 +387,7 @@
       
       <!-- Top Shlok & Family Name -->
       <div>
-        <div class="shlok-text">|| Sri Satyanarayana Swamye Namaha ||</div>
+        <div class="shlok-text">|| Shree Madavrajula Swamy Namaha ||</div>
         <div class="family-title">Penakacherla Family</div>
       </div>
 
@@ -402,7 +401,7 @@
 
       <!-- INVITATION TEXT -->
       <div class="invitation-desc">
-        With the divine blessings of the Almighty, we warmly seek the pleasure of your company as we celebrate the housewarming of our new home. Please join us in prayer and festivities to grace this sacred occasion.
+        With the divine grace and blessings of Shree Madavrajula Swamy, we cordially invite you to join us in celebrating our Housewarming Ceremony. Your presence and blessings will make our new beginning truly auspicious.
       </div>
 
       <!-- Event Date -->
@@ -462,22 +461,23 @@
       const doorHeaderText = document.getElementById('doorHeaderText');
       const scrollOverlay = document.getElementById('scrollOverlay');
       
-      // Step 1: Hide header text and tap prompt cleanly
+      // Step 1: Hide door text & tap prompt
       tapHint.style.opacity = '0';
       doorHeaderText.style.opacity = '0';
 
-      // Step 2: Smoothly zoom the entire door wrapper by 30% over 1.6 seconds
+      // Step 2: Smoothly zoom the entire door image by 30% over 1.6s
       doorWrapper.classList.add('zooming');
 
-      // Step 3: Once zoom completes smoothly, slowly open doors over 2.2 seconds
+      // Step 3: Open doors smoothly after zoom finishes
       setTimeout(() => {
         doorWrapper.classList.add('open');
         scrollOverlay.style.overflowY = 'auto';
       }, 1500);
 
-      // Step 4: Fade out door wrapper overlay completely
+      // Step 4: Completely unmount door overlay to enable mobile pull-to-refresh & direct touch gestures
       setTimeout(() => {
         doorWrapper.classList.add('fade-out');
+        doorWrapper.style.display = 'none';
       }, 3600);
     }
   </script>
