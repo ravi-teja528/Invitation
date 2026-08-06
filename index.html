@@ -6,7 +6,7 @@
   <title>Housewarming Invitation - Penakacherla Family</title>
   
   <!-- Traditional Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Marcellus&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Marcellus&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;0,800;1,600&display=swap" rel="stylesheet">
   
   <style>
     * {
@@ -21,7 +21,7 @@
       font-family: 'Montserrat', sans-serif;
       background-color: #0f0704;
       color: #3b1408;
-      overflow: hidden; /* Prevent full body page scroll */
+      overflow: hidden;
     }
 
     /* ----------------------------------
@@ -47,8 +47,9 @@
       background-image: url('1000197031.jpg');
       background-size: 100vw 100vh;
       background-repeat: no-repeat;
-      transition: transform 1.6s cubic-bezier(0.65, 0, 0.35, 1);
+      transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
       position: relative;
+      transform: scale(1);
     }
 
     .door-left {
@@ -61,12 +62,21 @@
       transform-origin: right center;
     }
 
+    /* STEP 1: ZOOM DOORS 30% */
+    #door-wrapper.zooming .door-left {
+      transform: scale(1.3);
+    }
+    #door-wrapper.zooming .door-right {
+      transform: scale(1.3);
+    }
+
+    /* STEP 2: OPEN DOORS WHILE MAINTAINING 30% ZOOM */
     #door-wrapper.open .door-left {
-      transform: rotateY(-115deg);
+      transform: scale(1.3) rotateY(-115deg);
     }
 
     #door-wrapper.open .door-right {
-      transform: rotateY(115deg);
+      transform: scale(1.3) rotateY(115deg);
     }
 
     #door-wrapper.fade-out {
@@ -74,16 +84,16 @@
       opacity: 0;
     }
 
-    /* CLEAN DOOR TEXT (NO BOX) */
+    /* HIGH-CONTRAST VISIBLE DOOR TEXT */
     .door-header-text {
       position: absolute;
       top: 6%;
       left: 50%;
       transform: translateX(-50%);
       font-family: 'Cinzel Decorative', serif;
-      font-size: 1.6rem;
+      font-size: 1.65rem;
       font-weight: 700;
-      color: #fff3d1;
+      color: #4a0505; /* Dark Crimson maroon */
       text-align: center;
       width: 90%;
       max-width: 480px;
@@ -91,18 +101,21 @@
       letter-spacing: 1px;
       line-height: 1.35;
       pointer-events: none;
-      transition: opacity 0.5s ease;
-      text-shadow: 2px 3px 10px rgba(0,0,0,0.85), 0 0 20px rgba(212, 175, 55, 0.5);
+      transition: opacity 0.4s ease;
+      /* Glowing cream halo around text for 100% visibility against door graphics */
+      text-shadow: 0 0 12px rgba(255, 252, 240, 0.95), 0 0 20px rgba(255, 245, 210, 0.9), 1px 2px 4px rgba(0,0,0,0.3);
     }
 
     .door-header-text span {
       display: block;
       font-family: 'Marcellus', serif;
       font-size: 1.05rem;
-      color: #ffd700;
-      margin-top: 5px;
+      color: #7a0c0c; /* High visibility deep red */
+      font-weight: 700;
+      margin-top: 6px;
       letter-spacing: 2px;
       text-transform: uppercase;
+      text-shadow: 0 0 10px rgba(255, 252, 240, 0.95), 0 0 15px rgba(255, 245, 210, 0.9);
     }
 
     .tap-hint {
@@ -123,7 +136,7 @@
       z-index: 10000;
       text-transform: uppercase;
       pointer-events: none;
-      transition: opacity 0.5s ease;
+      transition: opacity 0.4s ease;
     }
 
     @keyframes pulse {
@@ -146,19 +159,17 @@
 
     /* ----------------------------------
        MIDDLE 70% VERTICAL SCROLL ZONE
-       Leaves top 15% and bottom 15% completely clean
     ---------------------------------- */
     .scroll-overlay {
       position: fixed;
-      top: 15vh;     /* Top 15% margin */
-      height: 70vh;  /* Strictly Middle 70% height */
+      top: 15vh;
+      height: 70vh;
       left: 0;
       right: 0;
       z-index: 2;
-      overflow-y: hidden; /* Locked until doors open */
+      overflow-y: hidden;
       display: flex;
       justify-content: center;
-      /* Hide scrollbar lines */
       scrollbar-width: none;
     }
 
@@ -178,7 +189,7 @@
     }
 
     /* ----------------------------------
-       FLOATING TYPOGRAPHY
+       ELEGANT REPHRASED TYPOGRAPHY
     ---------------------------------- */
     .shlok-text {
       font-family: 'Marcellus', serif;
@@ -199,14 +210,13 @@
       text-shadow: 1px 1px 2px rgba(255, 235, 200, 0.9);
     }
 
-    /* HIGHLIGHTED HOUSEWARMING TITLE */
     .highlight-container {
       margin: 2px 0;
     }
 
     .highlight-title {
       font-family: 'Cinzel Decorative', serif;
-      font-size: 1.6rem;
+      font-size: 1.65rem;
       color: #8b1a1a;
       font-weight: 900;
       letter-spacing: 1.5px;
@@ -231,15 +241,14 @@
 
     .invitation-desc {
       font-family: 'Marcellus', serif;
-      font-size: 0.95rem;
-      line-height: 1.65;
+      font-size: 0.96rem;
+      line-height: 1.7;
       color: #3b1408;
-      max-width: 420px;
+      max-width: 440px;
       font-weight: 500;
-      text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+      text-shadow: 0 1px 2px rgba(255, 255, 255, 0.85);
     }
 
-    /* CLEAN DATE */
     .date-text {
       font-family: 'Cinzel Decorative', serif;
       font-size: 1.2rem;
@@ -349,7 +358,6 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     }
 
-    /* Mobile Adjustments */
     @media (max-width: 480px) {
       .door-header-text { font-size: 1.35rem; top: 6%; }
       .door-header-text span { font-size: 0.9rem; }
@@ -388,20 +396,20 @@
         <div class="family-title">Penakacherla Family</div>
       </div>
 
-      <!-- PROMINENT HIGHLIGHTED HOUSEWARMING INVITATION -->
+      <!-- REPHRASED & POLISHED INVITATION HEADER -->
       <div class="highlight-container">
         <div class="flourish-divider">✦ ✦ ✦</div>
-        <div class="highlight-title">HOUSEWARMING INVITATION</div>
+        <div class="highlight-title">GRUHA PRAVESAM</div>
         <div class="highlight-subtitle">& Sri Satyanarayana Swamy Vratham</div>
         <div class="flourish-divider">✦ ✦ ✦</div>
       </div>
 
-      <!-- Description -->
+      <!-- REPHRASED & POLISHED INVITATION TEXT -->
       <div class="invitation-desc">
-        We cordially solicit your gracious presence and blessings on the auspicious occasion of our Housewarming Ceremony.
+        With the divine blessings of the Almighty, we warmly seek the pleasure of your company as we celebrate the housewarming of our new home. Please join us in prayer and festivities to grace this sacred occasion.
       </div>
 
-      <!-- Clean Event Date -->
+      <!-- Event Date -->
       <div class="date-text">
         📅 Wednesday, 19 August 2026
       </div>
@@ -458,17 +466,23 @@
       const doorHeaderText = document.getElementById('doorHeaderText');
       const scrollOverlay = document.getElementById('scrollOverlay');
       
+      // Hide door text & tap hint immediately
       tapHint.style.opacity = '0';
       doorHeaderText.style.opacity = '0';
 
-      doorWrapper.classList.add('open');
-      
-      // Enable scrolling inside the middle 70% zone
-      scrollOverlay.style.overflowY = 'auto';
+      // STEP 1: Zoom in doors by 30% first
+      doorWrapper.classList.add('zooming');
 
+      // STEP 2: Swing doors open after 300ms zoom lead-in
+      setTimeout(() => {
+        doorWrapper.classList.add('open');
+        scrollOverlay.style.overflowY = 'auto';
+      }, 300);
+
+      // STEP 3: Complete fade out
       setTimeout(() => {
         doorWrapper.classList.add('fade-out');
-      }, 1600);
+      }, 1800);
     }
   </script>
 </body>
