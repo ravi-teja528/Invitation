@@ -38,7 +38,14 @@
       display: flex;
       cursor: pointer;
       overflow: hidden;
-      transition: opacity 0.8s ease 1s;
+      transform-origin: center center;
+      /* Smooth zoom transition for the entire door image without inner overlapping */
+      transition: transform 1.6s ease-in-out, opacity 0.8s ease;
+    }
+
+    /* STEP 1: Smooth 30% Zoom on entire wrapper as a single still image */
+    #door-wrapper.zooming {
+      transform: scale(1.3);
     }
 
     .door {
@@ -47,9 +54,9 @@
       background-image: url('1000197031.jpg');
       background-size: 100vw 100vh;
       background-repeat: no-repeat;
-      transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+      /* Slow, elegant 3D swing duration */
+      transition: transform 2.2s cubic-bezier(0.35, 0, 0.25, 1);
       position: relative;
-      transform: scale(1);
     }
 
     .door-left {
@@ -62,21 +69,13 @@
       transform-origin: right center;
     }
 
-    /* STEP 1: ZOOM DOORS 30% */
-    #door-wrapper.zooming .door-left {
-      transform: scale(1.3);
-    }
-    #door-wrapper.zooming .door-right {
-      transform: scale(1.3);
-    }
-
-    /* STEP 2: OPEN DOORS WHILE MAINTAINING 30% ZOOM */
+    /* STEP 2: Slow 3D Door Opening */
     #door-wrapper.open .door-left {
-      transform: scale(1.3) rotateY(-115deg);
+      transform: rotateY(-115deg);
     }
 
     #door-wrapper.open .door-right {
-      transform: scale(1.3) rotateY(115deg);
+      transform: rotateY(115deg);
     }
 
     #door-wrapper.fade-out {
@@ -84,7 +83,7 @@
       opacity: 0;
     }
 
-    /* HIGH-CONTRAST VISIBLE DOOR TEXT */
+    /* HIGH-CONTRAST DOOR TEXT */
     .door-header-text {
       position: absolute;
       top: 6%;
@@ -93,7 +92,7 @@
       font-family: 'Cinzel Decorative', serif;
       font-size: 1.65rem;
       font-weight: 700;
-      color: #4a0505; /* Dark Crimson maroon */
+      color: #4a0505;
       text-align: center;
       width: 90%;
       max-width: 480px;
@@ -102,7 +101,6 @@
       line-height: 1.35;
       pointer-events: none;
       transition: opacity 0.4s ease;
-      /* Glowing cream halo around text for 100% visibility against door graphics */
       text-shadow: 0 0 12px rgba(255, 252, 240, 0.95), 0 0 20px rgba(255, 245, 210, 0.9), 1px 2px 4px rgba(0,0,0,0.3);
     }
 
@@ -110,7 +108,7 @@
       display: block;
       font-family: 'Marcellus', serif;
       font-size: 1.05rem;
-      color: #7a0c0c; /* High visibility deep red */
+      color: #7a0c0c;
       font-weight: 700;
       margin-top: 6px;
       letter-spacing: 2px;
@@ -188,9 +186,7 @@
       gap: 45px;
     }
 
-    /* ----------------------------------
-       ELEGANT REPHRASED TYPOGRAPHY
-    ---------------------------------- */
+    /* TYPOGRAPHY STYLES */
     .shlok-text {
       font-family: 'Marcellus', serif;
       font-size: 0.95rem;
@@ -396,7 +392,7 @@
         <div class="family-title">Penakacherla Family</div>
       </div>
 
-      <!-- REPHRASED & POLISHED INVITATION HEADER -->
+      <!-- INVITATION HEADER -->
       <div class="highlight-container">
         <div class="flourish-divider">✦ ✦ ✦</div>
         <div class="highlight-title">GRUHA PRAVESAM</div>
@@ -404,7 +400,7 @@
         <div class="flourish-divider">✦ ✦ ✦</div>
       </div>
 
-      <!-- REPHRASED & POLISHED INVITATION TEXT -->
+      <!-- INVITATION TEXT -->
       <div class="invitation-desc">
         With the divine blessings of the Almighty, we warmly seek the pleasure of your company as we celebrate the housewarming of our new home. Please join us in prayer and festivities to grace this sacred occasion.
       </div>
@@ -466,23 +462,23 @@
       const doorHeaderText = document.getElementById('doorHeaderText');
       const scrollOverlay = document.getElementById('scrollOverlay');
       
-      // Hide door text & tap hint immediately
+      // Step 1: Hide header text and tap prompt cleanly
       tapHint.style.opacity = '0';
       doorHeaderText.style.opacity = '0';
 
-      // STEP 1: Zoom in doors by 30% first
+      // Step 2: Smoothly zoom the entire door wrapper by 30% over 1.6 seconds
       doorWrapper.classList.add('zooming');
 
-      // STEP 2: Swing doors open after 300ms zoom lead-in
+      // Step 3: Once zoom completes smoothly, slowly open doors over 2.2 seconds
       setTimeout(() => {
         doorWrapper.classList.add('open');
         scrollOverlay.style.overflowY = 'auto';
-      }, 300);
+      }, 1500);
 
-      // STEP 3: Complete fade out
+      // Step 4: Fade out door wrapper overlay completely
       setTimeout(() => {
         doorWrapper.classList.add('fade-out');
-      }, 1800);
+      }, 3600);
     }
   </script>
 </body>
