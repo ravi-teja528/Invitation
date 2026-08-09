@@ -154,7 +154,7 @@
     }
 
     /* ----------------------------------
-       FLOATING ACTION BUTTON (BOTTOM RIGHT SHOWER BUTTON)
+       FLOATING ACTION BUTTON (BOTTOM RIGHT)
     ---------------------------------- */
     .fab-celebrate {
       position: fixed;
@@ -209,7 +209,7 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
-      gap: 38px;
+      gap: 34px;
     }
 
     /* TYPOGRAPHY STYLES */
@@ -268,6 +268,42 @@
       color: #7a0c0c;
       letter-spacing: 1px;
       text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+    }
+
+    /* COUNTDOWN TIMER STYLES */
+    .timer-container {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: -10px;
+    }
+
+    .timer-unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: rgba(255, 253, 247, 0.82);
+      border: 1px solid rgba(212, 175, 55, 0.7);
+      border-radius: 12px;
+      padding: 6px 12px;
+      min-width: 58px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+    }
+
+    .timer-value {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #8b1a1a;
+    }
+
+    .timer-label {
+      font-family: 'Marcellus', serif;
+      font-size: 0.65rem;
+      color: #5c0d0d;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 2px;
     }
 
     /* SCROLL INDICATOR ANIMATION */
@@ -436,7 +472,9 @@
       .door-header-text span { font-size: 0.9rem; }
       .family-title { font-size: 1.75rem; }
       .highlight-title { font-size: 1.8rem; }
-      .content-area { gap: 34px; }
+      .content-area { gap: 30px; }
+      .timer-unit { min-width: 50px; padding: 5px 8px; }
+      .timer-value { font-size: 1rem; }
       .fab-celebrate { bottom: 18px; right: 18px; width: 48px; height: 48px; font-size: 1.3rem; }
     }
   </style>
@@ -459,7 +497,7 @@
   <!-- FIXED STAY-STILL BACKGROUND -->
   <div id="fixed-bg"></div>
 
-  <!-- FLOATING PARTY SHOWER BUTTON (BOTTOM RIGHT - VISIBLE ALL THE TIME) -->
+  <!-- FLOATING PARTY SHOWER BUTTON (BOTTOM RIGHT) -->
   <button class="fab-celebrate" onclick="showerBlessings()" title="Shower Blessings">🎉</button>
 
   <!-- SCROLLING ZONE CONSTRAINED TO MIDDLE 70% HEIGHT -->
@@ -489,13 +527,33 @@
         📅 Wednesday, 19 August 2026
       </div>
 
+      <!-- LIVE COUNTDOWN TIMER -->
+      <div class="timer-container" id="countdownTimer">
+        <div class="timer-unit">
+          <span class="timer-value" id="timerDays">00</span>
+          <span class="timer-label">Days</span>
+        </div>
+        <div class="timer-unit">
+          <span class="timer-value" id="timerHours">00</span>
+          <span class="timer-label">Hours</span>
+        </div>
+        <div class="timer-unit">
+          <span class="timer-value" id="timerMins">00</span>
+          <span class="timer-label">Mins</span>
+        </div>
+        <div class="timer-unit">
+          <span class="timer-value" id="timerSecs">00</span>
+          <span class="timer-label">Secs</span>
+        </div>
+      </div>
+
       <!-- VISUAL SCROLL DOWN SYMBOL -->
       <div class="scroll-hint-indicator">
         <span>Scroll Down</span>
         <span class="scroll-arrow">↓</span>
       </div>
 
-      <!-- Auspicious Program Schedule with Partial Dividers -->
+      <!-- Auspicious Program Schedule -->
       <div class="schedule-block">
         <div class="section-heading">Auspicious Program</div>
         
@@ -551,26 +609,54 @@
       const doorHeaderText = document.getElementById('doorHeaderText');
       const scrollOverlay = document.getElementById('scrollOverlay');
       
-      // Step 1: Hide door text & tap prompt
       tapHint.style.opacity = '0';
       doorHeaderText.style.opacity = '0';
 
-      // Step 2: Smoothly zoom the entire door image by 30% over 1.6s
       doorWrapper.classList.add('zooming');
 
-      // Step 3: Open doors smoothly after zoom finishes
       setTimeout(() => {
         doorWrapper.classList.add('open');
         scrollOverlay.style.overflowY = 'auto';
-        showerBlessings(); // Trigger celebration shower on door open
+        showerBlessings();
       }, 1500);
 
-      // Step 4: Completely unmount door overlay to enable mobile pull-to-refresh
       setTimeout(() => {
         doorWrapper.classList.add('fade-out');
         doorWrapper.style.display = 'none';
       }, 3600);
     }
+
+    /* COUNTDOWN TIMER FUNCTION */
+    function initCountdown() {
+      const targetDate = new Date('August 19, 2026 04:30:00').getTime();
+
+      function updateTimer() {
+        const now = new Date().getTime();
+        const difference = targetDate - now;
+
+        if (difference <= 0) {
+          document.getElementById('countdownTimer').innerHTML = 
+            "<div style='font-family: Marcellus, serif; color: #7a0c0c; font-weight: 600; font-size: 0.95rem;'>✦ The Auspicious Event Has Begun ✦</div>";
+          return;
+        }
+
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+        document.getElementById('timerDays').innerText = String(days).padStart(2, '0');
+        document.getElementById('timerHours').innerText = String(hours).padStart(2, '0');
+        document.getElementById('timerMins').innerText = String(minutes).padStart(2, '0');
+        document.getElementById('timerSecs').innerText = String(seconds).padStart(2, '0');
+      }
+
+      updateTimer();
+      setInterval(updateTimer, 1000);
+    }
+
+    // Start timer script on page load
+    initCountdown();
 
     /* PETAL & BLESSING SHOWER FUNCTION */
     function showerBlessings() {
